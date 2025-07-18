@@ -1,35 +1,16 @@
-// Initialize a new Lenis instance for smooth scrolling
 const lenis = new Lenis();
-
-// Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
 lenis.on('scroll', ScrollTrigger.update);
-
-// Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
 gsap.ticker.add((time) => {
-    lenis.raf(time * 1000); // Convert time from seconds to milliseconds
+    lenis.raf(time * 1000);
 });
-
-// Disable lag smoothing in GSAP to prevent any delay in scroll animations
 gsap.ticker.lagSmoothing(0);
 
 
 
 
-
-
-
-
-// Setup Three.js scene
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-    75, window.innerWidth / window.innerHeight, 0.1, 1000
-);
-
-const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true,
-});
-
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
@@ -96,7 +77,6 @@ const floatAmplitude = 0.2;
 const floatSpeed = 0.0015;
 const rotationSpeed = 0.3;
 let currentScroll = 0;
-
 const totalScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
 
 function playInitialAnimation() {
@@ -132,28 +112,20 @@ animate();
 
 function updateModelScale() {
     if (window.innerWidth < 768) {
-        model.scale.set(0.65, 0.65, 0.65); // Slightly bigger on mobile
+        model.scale.set(0.65, 0.65, 0.65);
     } else if (window.innerWidth < 1024) {
-        model.scale.set(0.75, 0.75, 0.75); // Medium on tablets
+        model.scale.set(0.75, 0.75, 0.75);
     } else {
-        model.scale.set(1, 1, 1); // Full size on desktop
+        model.scale.set(1, 1, 1);
     }
 }
 
 window.addEventListener("resize", () => {
-    // camera.aspect = window.innerWidth / window.innerHeight;
-    // camera.updateProjectionMatrix();
-    // renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
     renderer.setSize(window.innerWidth, window.innerHeight);
-
-    updateModelScale(); // 👈 Make model resize dynamically
+    updateModelScale();
 });
-
-
-
 
 
 
@@ -167,7 +139,6 @@ function customMouse() {
             ease: "power1.out"
         });
     });
-
 
     const menu = document.querySelector(".nav .menu");
     menu.addEventListener('mouseenter', () => {
@@ -188,7 +159,6 @@ function customMouse() {
         });
     });
 
-
     const full = document.querySelector(".full");
     full.addEventListener('mouseenter', () => {
         gsap.to(cursor, {
@@ -204,7 +174,6 @@ function customMouse() {
             ease: "power2.out"
         });
     });
-
 
     const fullLinks = document.querySelectorAll(".full .links a");
     fullLinks.forEach(link => {
@@ -241,16 +210,11 @@ function customMouse() {
             ease: "power2.out"
         });
     });
-
-
-
 }
 
-customMouse()
-
+customMouse();
 
 function fullMenuAnimation() {
-
     var tlfull = gsap.timeline()
     var full = document.querySelector(".full")
     var menu = document.querySelector(".menu")
@@ -266,7 +230,6 @@ function fullMenuAnimation() {
     tlfull.from(".full h1", {
         opacity: 0,
         duration: 0.6,
-        // delay: 0.4,
         stagger: 0.2,
         ease: "power2.out",
     })
@@ -275,7 +238,6 @@ function fullMenuAnimation() {
         y: -70,
         opacity: 0,
         duration: 0.6,
-        // delay: 0.4,
         stagger: 0.2,
         ease: "power2.out",
     })
@@ -294,20 +256,15 @@ function fullMenuAnimation() {
     close.addEventListener("click", function () {
         tlfull.reverse()
     })
-
 }
 
-fullMenuAnimation()
-
-
-
+fullMenuAnimation();
 
 function headerAnimation() {
-
     const nav = document.querySelector(".nav ");
     const navlink = document.querySelector(".nav ul a ");
     const headerTexts = document.querySelectorAll(".text1 .box h1");
-    const headerPara = document.querySelector(".header p")
+    const headerPara = document.querySelector(".header p");
 
     var tl = gsap.timeline();
 
@@ -315,7 +272,6 @@ function headerAnimation() {
         opacity: 0,
         y: -200,
         duration: 1,
-
     }).from(headerTexts, {
         y: 150,
         stagger: 0.4,
@@ -324,21 +280,15 @@ function headerAnimation() {
     }).from(headerPara, {
         opacity: 0,
         duration: 1,
-
     });
 }
 
-headerAnimation()
-
+headerAnimation();
 
 function seconeAnimation() {
     const heading = document.querySelector(".sec1 h1");
     const infoText = document.querySelector("sec1 .text2")
     const splitText = new SplitType(heading, { types: "chars" });
-
-
-
-
 
     gsap.to(splitText.chars, {
         opacity: 1,
@@ -350,24 +300,16 @@ function seconeAnimation() {
             start: "top 52%",
             end: "top 4%",
             scrub: true,
-            // markers: true, 
         },
     })
-
-
-
-
 }
-seconeAnimation()
-
-
+seconeAnimation();
 
 document.addEventListener("DOMContentLoaded", () => {
     function sectwoAnimation() {
         const hoverText = document.querySelectorAll(".sec2 .text3 h2");
         const cursor = document.querySelector(".cursor");
 
-        // ✅ Hide images initially with GSAP
         gsap.set(".image-container", { display: "none", opacity: 0 });
 
         if (hoverText.length && cursor) {
@@ -423,4 +365,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     sectwoAnimation();
 });
-
